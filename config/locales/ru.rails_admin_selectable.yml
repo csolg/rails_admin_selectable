@@ -1,0 +1,10 @@
+ru:
+  admin:
+    actions:
+      select:
+        title: "Выбрать"
+    select:
+      enabled: '"%{attr}" успешно обновлен'
+      error: "Ошибка: %{err}"
+      no_id: "Не указан ID"
+

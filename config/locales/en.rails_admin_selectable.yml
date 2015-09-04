@@ -1,0 +1,9 @@
+en:
+  admin:
+    actions:
+      select:
+        title: "Select"
+    select:
+      success: '"%{attr}" changed success'
+      error: "Error: %{err}"
+      no_id: "No ID provided"

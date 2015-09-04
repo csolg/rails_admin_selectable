@@ -1,8 +1,7 @@
-# -*- encoding : utf-8 -*-
 module RailsAdmin
   module Config
     module Actions
-      class Toggle < Base
+      class Select < Base
         RailsAdmin::Config::Actions.register(self)
 
         # Is the action acting on the root level (Example: /admin/contact)
@@ -21,31 +20,16 @@ module RailsAdmin
 
         register_instance_option :controller do
           proc do
-            ajax_link = Proc.new do |fv, on, badge|
-              render json: {
-                text: fv.html_safe,
-                href: toggle_path(model_name: @abstract_model, id: @object.id, method: @meth, on: on.to_s),
-                class: 'label ' + badge,
-              }
-            end
             if params['id'].present?
               begin
                 @object = @abstract_model.model.find(params['id'])
                 @meth = params[:method]
-                @object.send(@meth + '=', params[:on] == '1' ? true : false)
+                @object.send(@meth + '=', params[:value])
                 if @object.save
                   if params['ajax'].present?
-                    if params[:on] == '1'
-                      ajax_link.call('✓', 0, 'label-success')
-                    else
-                      ajax_link.call('✘', 1, 'label-danger')
-                    end
+                    render json: { ok: true }
                   else
-                    if params[:on] == '1'
-                      flash[:success] = I18n.t('admin.toggle.enabled', attr: @meth)
-                    else
-                      flash[:success] = I18n.t('admin.toggle.disabled', attr: @meth)
-                    end
+                    flash[:success] = I18n.t('admin.toggle.success', attr: @meth)
                   end
                 else
                   if params['ajax'].present?
