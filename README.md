@@ -1,5 +1,7 @@
 # RailsAdminSelectable
 
+Inspired by [RailsAdminToggleable](https://github.com/rs-pro/rails_admin_toggleable)
+
 Make any association field easily selectable from index view in rails admin
 
 ## Installation
